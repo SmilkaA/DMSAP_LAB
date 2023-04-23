@@ -110,8 +110,8 @@ public class Graph {
         }
     }
 
-    public static Graph fromFileToGraph() throws FileNotFoundException {
-        Scanner scanner = new Scanner(new BufferedReader(new FileReader("src/main/java/labs.lab1/l1_3.txt")));
+    public static Graph fromFileToGraph(String filename) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)));
         int size = scanner.nextInt();
         Graph graph = new Graph(size);
         int[][] data = new int[size][size];
