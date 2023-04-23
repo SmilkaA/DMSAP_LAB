@@ -111,9 +111,21 @@ public class Graph {
     }
 
     public static Graph fromFileToGraph(String filename) throws FileNotFoundException {
+        int[][] data = getGraphMatrix(filename);
+        Graph graph = new Graph(data.length);
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data.length; j++) {
+                if (data[i][j] != 0) {
+                    graph.addEdge(i, j, data[i][j]);
+                }
+            }
+        }
+        return graph;
+    }
+
+    public static int[][] getGraphMatrix(String filename) throws FileNotFoundException {
         Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)));
         int size = scanner.nextInt();
-        Graph graph = new Graph(size);
         int[][] data = new int[size][size];
         scanner.nextLine();
         while (scanner.hasNextLine()) {
@@ -124,13 +136,22 @@ public class Graph {
                 }
             }
         }
+        return data;
+    }
+
+    public static int findHamiltonianCycle(int[][] distance, int size, boolean[] visitedNodes, int currPos, int count, int cost, int hamiltonianCycle)   {
+        if (count == size && distance[currPos][0] > 0) {
+            hamiltonianCycle = Math.min(hamiltonianCycle, cost + distance[currPos][0]);
+            return hamiltonianCycle;
+        }
+
         for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (data[i][j] != 0) {
-                    graph.addEdge(i, j, data[i][j]);
-                }
+            if (visitedNodes[i] == false && distance[currPos][i] > 0) {
+                visitedNodes[i] = true;
+                hamiltonianCycle = findHamiltonianCycle(distance,size, visitedNodes, i, count + 1, cost + distance[currPos][i], hamiltonianCycle);
+                visitedNodes[i] = false;
             }
         }
-        return graph;
+        return hamiltonianCycle;
     }
 }
