@@ -139,7 +139,18 @@ public class Graph {
         return data;
     }
 
-    public static int findHamiltonianCycle(int[][] distance, int size, boolean[] visitedNodes, int currPos, int count, int cost, int hamiltonianCycle)   {
+    public static int[][] fromDataMatrixToIncendentMatrix(int[][] dataMatrix) {
+        for (int i = 0; i < dataMatrix.length; i++) {
+            for (int j = 0; j < dataMatrix[i].length; j++) {
+                if (dataMatrix[i][j] > 1) {
+                    dataMatrix[i][j] = 1;
+                }
+            }
+        }
+        return dataMatrix;
+    }
+
+    public static int findHamiltonianCycle(int[][] distance, int size, boolean[] visitedNodes, int currPos, int count, int cost, int hamiltonianCycle) {
         if (count == size && distance[currPos][0] > 0) {
             hamiltonianCycle = Math.min(hamiltonianCycle, cost + distance[currPos][0]);
             return hamiltonianCycle;
@@ -148,7 +159,7 @@ public class Graph {
         for (int i = 0; i < size; i++) {
             if (visitedNodes[i] == false && distance[currPos][i] > 0) {
                 visitedNodes[i] = true;
-                hamiltonianCycle = findHamiltonianCycle(distance,size, visitedNodes, i, count + 1, cost + distance[currPos][i], hamiltonianCycle);
+                hamiltonianCycle = findHamiltonianCycle(distance, size, visitedNodes, i, count + 1, cost + distance[currPos][i], hamiltonianCycle);
                 visitedNodes[i] = false;
             }
         }
