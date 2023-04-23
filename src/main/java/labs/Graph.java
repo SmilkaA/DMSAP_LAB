@@ -1,11 +1,11 @@
-package lab1;
+package labs;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
-class Graph {
+public class Graph {
 
     private final int V;
     private final List<Edge>[] adj;
@@ -110,8 +110,8 @@ class Graph {
         }
     }
 
-    private static Graph fromFileToGraph() throws FileNotFoundException {
-        Scanner scanner = new Scanner(new BufferedReader(new FileReader("src/main/java/lab1/l1_3.txt")));
+    public static Graph fromFileToGraph() throws FileNotFoundException {
+        Scanner scanner = new Scanner(new BufferedReader(new FileReader("src/main/java/labs.lab1/l1_3.txt")));
         int size = scanner.nextInt();
         Graph graph = new Graph(size);
         int[][] data = new int[size][size];
@@ -132,11 +132,5 @@ class Graph {
             }
         }
         return graph;
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        Graph graph = fromFileToGraph();
-        System.out.println("Мінімальне остове дерево:");
-        graph.boruvkaMST();
     }
 }
