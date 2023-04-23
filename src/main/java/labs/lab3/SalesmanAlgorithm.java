@@ -11,6 +11,6 @@ public class SalesmanAlgorithm {
         visitCity[0] = true;
         int hamiltonianCycle = Integer.MAX_VALUE;
         hamiltonianCycle = Graph.findHamiltonianCycle(distance, 6, visitCity, 0, 1, 0, hamiltonianCycle);
-        System.out.println(hamiltonianCycle);
+        System.out.println("Shortest path:"+hamiltonianCycle);
     }
 }
